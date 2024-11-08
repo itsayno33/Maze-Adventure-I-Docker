@@ -1,0 +1,45 @@
+services:
+    www:
+        build: ./www/
+        container_name: "mai-www"
+        volumes:
+            - ./www/html/:/var/www/html
+            - D:/Top/Dev/ts/maiTset/src/html:/var/www/my/mai
+        privileged: true
+        ports:
+            - "8099:80"
+        depends_on:
+            - sql
+    sql:
+#        image: mysql:9.0.1
+        build: ./sql/
+        container_name: "mai-sql"
+        volumes:
+            - my_db:/var/lib/mysql
+#            - ./sql/config/my.cnf:/etc/mysql/conf.d/my.cnf
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=db_mai
+            - MYSQL_USER=itsayno33
+            - MYSQL_PASSWORD=PE333833
+            - LANG=ja_JP.UTF-8
+        ports:
+            - "5306:3306"
+            - "35060:33060"
+    bck:
+#        image: debian:12.7-slim
+        build: ./bck/
+        container_name: "mai-bck"
+#        user:  "node"
+        working_dir: /home/node/app
+        volumes:
+            - ./bck/app:/home/node/app
+        environment:
+            - PORT=5000
+        ports:
+            - "8888:5000"
+#        depends_on:
+#            - sql
+#        command: npm start
+volumes:
+    my_db:
