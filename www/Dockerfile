@@ -13,5 +13,8 @@ RUN mkdir -pm 777 /var/www/my && mkdir -pm 777 /var/www/my/mai && chmod -R 777 /
  && localedef -i ja_JP -c -f UTF-8 -A /usr/share/locale/locale.alias ja_JP.UTF-8 \
  && export LANG=ja_JP.UTF-8 \
  && export LANGUAGE=ja_JP.UTF-8 \
- && export ALL_C=ja_JP.UTF-8
+ && export ALL_C=ja_JP.UTF-8 \
+ && a2enmod rewrite \
+ && a2enmod proxy \
+ && a2enmod proxy_http
  

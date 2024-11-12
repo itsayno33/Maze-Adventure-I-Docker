@@ -4,14 +4,17 @@ services:
         container_name: "mai-www"
         volumes:
             - ./www/html/:/var/www/html
-            - D:/Top/Dev/ts/maiTset/src/html:/var/www/my/mai
+            - D:/Top/Dev/ts/mai/src/html:/var/www/my/mai
+            - ./www/config/apache/my.conf:/etc/apache2/conf-enabled/my.conf
         privileged: true
+        environment:
+            - LANG=ja_JP.UTF-8
         ports:
-            - "8099:80"
+            - "9090:80"
+            - "9099:8080"
         depends_on:
             - sql
     sql:
-#        image: mysql:9.0.1
         build: ./sql/
         container_name: "mai-sql"
         volumes:
@@ -30,16 +33,18 @@ services:
 #        image: debian:12.7-slim
         build: ./bck/
         container_name: "mai-bck"
+        tty: true
 #        user:  "node"
         working_dir: /home/node/app
         volumes:
             - ./bck/app:/home/node/app
         environment:
             - PORT=5000
+            - LANG=ja_JP.UTF-8
         ports:
             - "8888:5000"
-#        depends_on:
-#            - sql
+        depends_on:
+            - sql
 #        command: npm start
 volumes:
     my_db:
