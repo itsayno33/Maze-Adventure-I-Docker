@@ -1,5 +1,6 @@
 #FROM node:23.1.0-bullseye-slim
 FROM ubuntu:24.10
+#FROM debian:12.7-slim
 
 # コマンドツール類のインストール 
 RUN apt-get update \
@@ -19,20 +20,19 @@ RUN apt-get install -y locales \
 
 # nodejs、npm(安定版)、express.jsジェネレータのインストール
 RUN echo "y" | apt-get install -y nodejs npm
-#RUN npm install -g http-errors cookie-parser morgan
-RUN npm install -g express \
-    mysql2 dotenv \
+RUN npm install -g http-errors cookie-parser morgan
+RUN npm install -g express mysql2 dotenv \
  && npm install -g cookie-parser http-errors morgan express-generator
 
 EXPOSE 3000
 
 # 以下、ビルド後初回起動時(expressのTEMPLATE作成)のコマンド
-CMD cd /home/node/app \
- && npx express-generator --view=ejs \
- && npm install \
- && npm audit fix --force \
- && npm audit fix --force \
- && npm start
+#CMD cd /home/node/app \
+# && npx express-generator --view=ejs \
+# && npm install \
+# && npm audit fix --force \
+# && npm audit fix --force \
+# && npm start
 
 # 以下、二回目以降の起動時の記述。packege.jsonにdevを付け加えておくこと
 #CMD npm dev
