@@ -20,7 +20,7 @@ RUN apt-get install -y locales \
 
 # nodejs、npm(安定版)、express.jsジェネレータのインストール
 RUN echo "y" | apt-get install -y nodejs npm
-RUN npm install -g http-errors cookie-parser morgan
+RUN npm install -g http-errors cookie-parser morgan ejs
 RUN npm install -g express mysql2 dotenv \
  && npm install -g cookie-parser http-errors morgan express-generator \
  && npm audit fix --force
