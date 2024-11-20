@@ -26,9 +26,9 @@ USE db_mad;
 
 -- LOAD DATA LOCAL INFILE '/docker-entrypoint-initdb.d/013_tbl_users.csv' INTO TABLE 013_tbl_users FIELDS TERMINATED BY '\t' ENCLOSED BY '\"' LINES TERMINATED BY '\n';
 
-INSERT INTO tbl_users                       /*** CHECK the TABLE NAME!! ***/
-  (uuid,userid,name,mbname)
+INSERT INTO tbl_player                       /*** CHECK the TABLE NAME!! ***/
+  (name,passwd,mbname,email)
 VALUES
-  (1,1,'test_user1','テストユーザー1'),
-  (2,2,'test_user2','テストユーザー2'),
-  (3,3,'namwonS','なむうぉんす');
+  ('test_user1','test1',  'テストユーザー1','dumm1@foo.com'),
+  ('test_user2','test2',  'テストユーザー2','dumm2@foo.com'),
+  ('namwonS',  'PE333833','なむうぉんす'   ,'namwons33@gmail.com');

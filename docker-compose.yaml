@@ -47,5 +47,6 @@ services:
             - sql
 #        command: npx express-generator --ejs && npm install && npm start # ビルド後の初回起動時
         command: npm start # 二回目以降の移動時。これに書き換える前にpackage.jsonのstartを『node app.js』に書き換えること
+#        command: npx nodemon ./app.js # 二回目以降の移動時。これに書き換える前にpackage.jsonのstartを『node app.js』に書き換えること
 volumes:
     my_db:

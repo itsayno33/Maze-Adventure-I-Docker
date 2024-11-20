@@ -20,10 +20,12 @@ RUN apt-get install -y locales \
 
 # nodejs、npm(安定版)、express.jsジェネレータのインストール
 RUN echo "y" | apt-get install -y nodejs npm
-RUN npm install -g http-errors cookie-parser morgan ejs
-RUN npm install -g express mysql2 dotenv \
- && npm install -g cookie-parser http-errors morgan express-generator \
- && npm audit fix --force
+RUN npm install -g express 
+RUN npm install -g cookie-parser http-errors morgan express-generator 
+#RUN npm audit fix --force
+RUN npm install -g mysql2 
+RUN npm install -g dotenv
+RUN npm install -g ejs 
 
 EXPOSE 3000
 
@@ -33,7 +35,9 @@ EXPOSE 3000
 # && npm install \
 # && npm audit fix --force \
 # && npm audit fix --force \
+# && npm install mysql2
+# && npm install nodemon
 # && npm start
 
-# 以下、二回目以降の起動時の記述。packege.jsonにdevを付け加えておくこと
+# 以下、二回目以降の起動時の記述。packege.jsonのstartを「node ./app.js」に書き換えておくこと
 #CMD npm dev
