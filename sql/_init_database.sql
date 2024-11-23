@@ -48,21 +48,19 @@ CREATE TABLE IF NOT EXISTS tbl_player (
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs_ks;
 
 
-CREATE TABLE tbl_djob ( /* ジョブの基本値テーブル */
-    id                INT                AUTO_INCREMENT, 
-    name            VARCHAR(60)        CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,     /* ジョブ名 */
-    need_p            INT UNSIGNED    NOT NULL,    /* 習得に必要なスキル・ポイントの増分 */
-    need_e            INT UNSIGNED    NOT NULL,    /* レベル・アップに必要な経験値の増分 */
-    
-    abi_p            JSON            NOT NULL,    /* ステータス: レベルアップ時の能力値の増分(物理)。 */
-    abi_m            JSON            NOT NULL,    /* ステータス: レベルアップ時の能力値の増分(魔法)。 */
-    create_time        DATETIME        DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    update_time        DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
+--
+-- initialize tbl_player
+--
 
-    PRIMARY KEY (id)
-) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs_ks;
+-- LOAD DATA LOCAL INFILE '/docker-entrypoint-initdb.d/013_tbl_player.csv' INTO TABLE tbl_player FIELDS TERMINATED BY '\t' ENCLOSED BY '\"' LINES TERMINATED BY '\n';
 
-ALTER TABLE tbl_djob ADD INDEX idx_djob_name(name);
+INSERT INTO tbl_player                       /*** CHECK the TABLE NAME!! ***/
+  (name,passwd,mbname,email)
+VALUES
+  ('test_user1','test1',  'テストユーザー1','dumm1@foo.com'),
+  ('test_user2','test2',  'テストユーザー2','dumm2@foo.com'),
+  ('namwonS',  'PE333833','なむうぉんす'   ,'namwons33@gmail.com');
+
 
 CREATE TABLE tbl_save (
     save_id            INT                AUTO_INCREMENT,
@@ -119,6 +117,7 @@ CREATE TABLE tbl_team (
     },
 */
 
+    gold             BIGINT UNSIGNED NOT NULL DEFAULT 0,  /* パーティの所持金 */
     goods            JSON            NOT NULL,            /* パーティの所持品 */
 /*
     {
@@ -172,6 +171,7 @@ CREATE TABLE tbl_guld (
     save_id            INT                NOT NULL,    /* tbl_saveのid */
     uniq_id            VARCHAR(60)        CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     name            VARCHAR(32)         CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
+    gold             BIGINT UNSIGNED NOT NULL DEFAULT 0,  /* パーティの所持金 */
     goods            JSON            NOT NULL,            /* パーティの所持品 */
     create_time        DATETIME        DEFAULT CURRENT_TIMESTAMP NOT NULL,
     update_time        DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
@@ -195,6 +195,7 @@ CREATE TABLE tbl_hero (
     name            VARCHAR(60)        CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
     sex                INT UNSIGNED    NOT NULL,                    /* 性別。選べる職業に影響する。ジェンダーはプログラムで考慮してます。 */
     age                INT UNSIGNED    NOT NULL,                    /* 年齢。ステータスの伸び率に関係。(ageが高いと初期能力が高い) */
+    gold             BIGINT UNSIGNED NOT NULL DEFAULT 0,          /* ヒーローの所持金 */
     goods            JSON            NOT NULL,                    /* ヒーローの所持品 */
 /*
     {
@@ -272,6 +273,46 @@ CREATE TABLE tbl_hero (
 
 ALTER TABLE tbl_hero ADD INDEX idx_hero_save_id (save_id, uniq_id);
 /*ALTER TABLE tbl_hero ADD INDEX idx_hero_save_id2(save_id, team_id, uniq_id); */
+
+
+/*
+CREATE TABLE tbl_mazeinfo (
+    id                INT                AUTO_INCREMENT, 
+    lv                INT                NOT NULL, 
+    name            VARCHAR(32)        NOT NULL UNIQUE,
+    mbname            VARCHAR(60)        CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    size_x            INT                NOT NULL, 
+    size_y            INT                NOT NULL, 
+    size_z            INT                NOT NULL, 
+    max_room        INT                NOT NULL, 
+    room_size        INT                NOT NULL, 
+    PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs_ks;
+
+ALTER TABLE tbl_mazeinfo ADD INDEX idx_mif_name(name);
+*/
+
+/*
+**
+** 暫定ここまで！
+**
+*/
+
+CREATE TABLE tbl_djob ( /* ジョブの基本値テーブル */
+    id                INT                AUTO_INCREMENT, 
+    name            VARCHAR(60)        CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,     /* ジョブ名 */
+    need_p            INT UNSIGNED    NOT NULL,    /* 習得に必要なスキル・ポイントの増分 */
+    need_e            INT UNSIGNED    NOT NULL,    /* レベル・アップに必要な経験値の増分 */
+    
+    abi_p            JSON            NOT NULL,    /* ステータス: レベルアップ時の能力値の増分(物理)。 */
+    abi_m            JSON            NOT NULL,    /* ステータス: レベルアップ時の能力値の増分(魔法)。 */
+    create_time        DATETIME        DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    update_time        DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
+
+    PRIMARY KEY (id)
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs_ks;
+
+ALTER TABLE tbl_djob ADD INDEX idx_djob_name(name);
 
 
 CREATE TABLE tbl_eqpt ( /* 装備 (ステータスに加減算)*/ /* 一般的な基準表も必要か。 tbl_deqp */
@@ -388,23 +429,5 @@ CREATE TABLE tbl_jobs (
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs_ks;
 
 ALTER TABLE tbl_jobs ADD INDEX idx_jbs_save_id(save_id, hero_id);
-
-
-/*
-CREATE TABLE tbl_mazeinfo (
-    id                INT                AUTO_INCREMENT, 
-    lv                INT                NOT NULL, 
-    name            VARCHAR(32)        NOT NULL UNIQUE,
-    mbname            VARCHAR(60)        CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    size_x            INT                NOT NULL, 
-    size_y            INT                NOT NULL, 
-    size_z            INT                NOT NULL, 
-    max_room        INT                NOT NULL, 
-    room_size        INT                NOT NULL, 
-    PRIMARY KEY (id)
-) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs_ks;
-
-ALTER TABLE tbl_mazeinfo ADD INDEX idx_mif_name(name);
-*/
 
 SHOW TABLES;
