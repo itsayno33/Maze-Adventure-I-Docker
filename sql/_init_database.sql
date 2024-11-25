@@ -36,13 +36,13 @@ ALTER DATABASE db_mai DEFAULT COLLATE = utf8mb4_ja_0900_as_cs_ks;
 --
 
 CREATE TABLE IF NOT EXISTS tbl_player (
-  id     int NOT NULL AUTO_INCREMENT,
-  name   varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
-  mbname varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks,
-  passwd varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks,
-  email  varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks,
-  cretime datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  updtime datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  id      int          NOT NULL AUTO_INCREMENT,
+  name    varchar(32)  CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
+  mbname  varchar(32)  CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks,
+  passwd  varchar(32)  CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks,
+  email   varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks,
+  cretime datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updtime datetime     NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   UNIQUE KEY email (email)
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs_ks;
@@ -63,51 +63,51 @@ VALUES
 
 
 CREATE TABLE tbl_save (
-    save_id            INT                AUTO_INCREMENT,
-    uniq_no            INT                NOT NULL,             /* 保存番号。uniq_idと似た名前だが別物！！！ */
-    player_id        INT                NOT NULL, 
-    title            VARCHAR(60)        CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
-    detail            VARCHAR(200)    CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
+    save_id          INT             AUTO_INCREMENT,
+    uniq_no          INT             NOT NULL,             /* 保存番号。uniq_idと似た名前だが別物！！！ */
+    player_id        INT             NOT NULL, 
+    title            VARCHAR(60)     CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
+    detail           VARCHAR(200)    CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
     point            VARCHAR(100)    CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
 
     mypos            JSON            NOT NULL,
-    all_mvpt        JSON            NOT NULL,
+    all_mvpt         JSON            NOT NULL,
 
     auto_mode        BOOL            NOT NULL,    /* 自動か手動か */
     is_active        BOOL            DEFAULT true  NOT NULL,    /* ロード可否 */
     is_delete        BOOL            DEFAULT false NOT NULL,    /* 削除済みの記録かどうか */
     save_time        DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL,
-    create_time        DATETIME        DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    update_time        DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
+    create_time      DATETIME        DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    update_time      DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
 
     PRIMARY KEY (save_id),
-    UNIQUE JOINY_ID_INDEX (player_id, uniq_no), 
-    CONSTRAINT player_id_check 
-        FOREIGN KEY (player_id)  REFERENCES tbl_player(id) 
-            ON DELETE RESTRICT 
-            ON UPDATE CASCADE 
+    UNIQUE JOINY_ID_INDEX (player_id, uniq_no)
+--    ,CONSTRAINT player_id_check 
+--        FOREIGN KEY (player_id)  REFERENCES tbl_player(id) 
+--            ON DELETE RESTRICT 
+--            ON UPDATE CASCADE 
 ) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs_ks;
 
 ALTER TABLE tbl_save ADD INDEX idx_save_title(title);
 
 
 CREATE TABLE tbl_team (
-    id                INT                AUTO_INCREMENT, 
-    save_id            INT                NOT NULL,    /* tbl_saveのid */
-    uniq_id            VARCHAR(60)        CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    name            VARCHAR(32)         CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
+    id               INT             AUTO_INCREMENT, 
+    save_id          INT             NOT NULL,    /* tbl_saveのid */
+    uniq_id          VARCHAR(60)     CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    name             VARCHAR(32)     CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
 
-    locate            JSON            NOT NULL,
+    locate           JSON            NOT NULL,
 /*
     {
         "maze" ?:
         {
             "name":        STRING,    // 迷宮名。tbl_mazeのnameと同じ。デバッグ用 
             "maze_uid":    STRING,    // tbl_mazeのuniq_id      
-            "poz_x":    INT,    // パーティーの位置(横)   
-            "poz_y":    INT,    // パーティーの位置(縦)   
-            "poz_z":    INT,    // パーティーの位置(階数) 
-            "poz_d":    INT,    // パーティーの向き(北=0, 東=1, 南=2, 西=3, 不明=99) 
+            "pos_x":    INT,    // パーティーの位置(横)   
+            "pos_y":    INT,    // パーティーの位置(縦)   
+            "pos_z":    INT,    // パーティーの位置(階数) 
+            "pos_d":    INT,    // パーティーの向き(北=0, 東=1, 南=2, 西=3, 不明=99) 
         },
         "guld" ?:
         {
@@ -118,7 +118,7 @@ CREATE TABLE tbl_team (
 */
 
     gold             BIGINT UNSIGNED NOT NULL DEFAULT 0,  /* パーティの所持金 */
-    goods            JSON            NOT NULL,            /* パーティの所持品 */
+    goods            JSON            DEFAULT  NULL,            /* パーティの所持品 */
 /*
     {
         "gold":        BIGINT UNSIGNED    DEFAULT 0 NOT NULL, // パーティーの所持金 
@@ -129,9 +129,9 @@ CREATE TABLE tbl_team (
     }
 */
 
-    is_hero            BOOL            NOT NULL,    /* PCならtrue, NPCならfalse   */
-    create_time        DATETIME        DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    update_time        DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
+    is_hero          BOOL            NOT NULL DEFAULT true,    /* PCならtrue, NPCならfalse   */
+    create_time      DATETIME        DEFAULT CURRENT_TIMESTAMP NOT NULL,
+    update_time      DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
 
     PRIMARY KEY (id),
     CONSTRAINT save_id_check_for_team  
@@ -144,17 +144,17 @@ ALTER TABLE tbl_team ADD INDEX idx_team_save_id(save_id, uniq_id);
 
 
 CREATE TABLE tbl_maze (
-    id            INT                AUTO_INCREMENT, 
-    save_id        INT                NOT NULL,    /* tbl_saveのid */
-    uniq_id        VARCHAR(60)        CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    name        VARCHAR(32)        CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    size_x        INT                NOT NULL,
-    size_y        INT                NOT NULL,
-    size_z        INT                NOT NULL,
-    maps         LONGTEXT        CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL, 
-    mask         LONGTEXT        CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL, 
-    create_time    DATETIME        DEFAULT CURRENT_TIMESTAMP NOT NULL, 
-    update_time    DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
+    id               INT             AUTO_INCREMENT, 
+    save_id          INT             NOT NULL,    /* tbl_saveのid */
+    uniq_id          VARCHAR(60)     CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    name             VARCHAR(32)     CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    size_x           INT             NOT NULL,
+    size_y           INT             NOT NULL,
+    size_z           INT             NOT NULL,
+    maps             LONGTEXT        CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL, 
+    mask             LONGTEXT        CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL, 
+    create_time      DATETIME        DEFAULT CURRENT_TIMESTAMP NOT NULL, 
+    update_time      DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
 
     PRIMARY KEY (id),
     CONSTRAINT save_id_check_for_maze  
@@ -167,14 +167,14 @@ ALTER TABLE tbl_maze ADD INDEX idx_maze_save_id(save_id, uniq_id);
 
 
 CREATE TABLE tbl_guld (
-    id                INT                AUTO_INCREMENT, 
-    save_id            INT                NOT NULL,    /* tbl_saveのid */
-    uniq_id            VARCHAR(60)        CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    name            VARCHAR(32)         CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
-    gold             BIGINT UNSIGNED NOT NULL DEFAULT 0,  /* パーティの所持金 */
-    goods            JSON            NOT NULL,            /* パーティの所持品 */
-    create_time        DATETIME        DEFAULT CURRENT_TIMESTAMP NOT NULL,
-    update_time        DATETIME        DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
+    id               INT                 AUTO_INCREMENT, 
+    save_id          INT                 NOT NULL,    /* tbl_saveのid */
+    uniq_id          VARCHAR(60)         CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    name             VARCHAR(32)         CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
+    gold             BIGINT UNSIGNED     DEFAULT 0 NOT NULL,  /* パーティの所持金 */
+    goods            JSON                DEFAULT   NULL,       /* パーティの所持品 */
+    create_time      DATETIME            DEFAULT   CURRENT_TIMESTAMP NOT NULL,
+    update_time      DATETIME            DEFAULT   CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
 
     PRIMARY KEY (id),
     CONSTRAINT save_id_check_for_guld  
@@ -188,15 +188,15 @@ ALTER TABLE tbl_guld ADD INDEX idx_guld_save_id(save_id, uniq_id);
 
 
 CREATE TABLE tbl_hero (
-    id                INT                AUTO_INCREMENT, 
-    save_id            INT                NOT NULL,    /* tbl_saveのid  */
-    uniq_id            VARCHAR(60)        CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
-    join_uid        VARCHAR(60)        NOT NULL,    /*保存時点で 所属するチームなりギルドのuniq_id */
-    name            VARCHAR(60)        CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
-    sex                INT UNSIGNED    NOT NULL,                    /* 性別。選べる職業に影響する。ジェンダーはプログラムで考慮してます。 */
-    age                INT UNSIGNED    NOT NULL,                    /* 年齢。ステータスの伸び率に関係。(ageが高いと初期能力が高い) */
+    id               NT              AUTO_INCREMENT, 
+    save_id          INT             NOT NULL,    /* tbl_saveのid  */
+    uniq_id          VARCHAR(60)     CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+    join_uid         VARCHAR(60)     NOT NULL,    /*保存時点で 所属するチームなりギルドのuniq_id */
+    name             VARCHAR(60)     CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
+    sex              INT UNSIGNED    NOT NULL,                    /* 性別。選べる職業に影響する。ジェンダーはプログラムで考慮してます。 */
+    age              INT UNSIGNED    NOT NULL,                    /* 年齢。ステータスの伸び率に関係。(ageが高いと初期能力が高い) */
     gold             BIGINT UNSIGNED NOT NULL DEFAULT 0,          /* ヒーローの所持金 */
-    goods            JSON            NOT NULL,                    /* ヒーローの所持品 */
+    goods            JSON            DEFAULT  NULL,                    /* ヒーローの所持品 */
 /*
     {
         "gold":        BIGINT UNSIGNED    DEFAULT 0 NOT NULL, // ヒーローの所持金 
@@ -207,19 +207,19 @@ CREATE TABLE tbl_hero (
     }
 */
     state            INT UNSIGNED    NOT NULL,                    /* 状態異常等 */
-    is_alive        BOOL            DEFAULT true  NOT NULL,        /* 生きてるかどうか */
+    is_alive         BOOL            DEFAULT true NOT NULL,        /* 生きてるかどうか */
 
-    lv                INT UNSIGNED    DEFAULT 0    NOT NULL,        /* ヒーローレベル */
+    lv               INT UNSIGNED    DEFAULT 0    NOT NULL,        /* ヒーローレベル */
 
-    skp_ttl            BIGINT UNSIGNED    DEFAULT 0    NOT NULL,        /* 今までに得たスキル値のトータル(仕様変更で再計算が必要になったとき用)。*/
-    skp_now            INT UNSIGNED    DEFAULT 0    NOT NULL,        /* 現在のスキル値。前回のヒーローレベルのアップ後の分 */
+    skp_ttl          BIGINT UNSIGNED DEFAULT 0    NOT NULL,        /* 今までに得たスキル値のトータル(仕様変更で再計算が必要になったとき用)。*/
+    skp_now          INT UNSIGNED    DEFAULT 0    NOT NULL,        /* 現在のスキル値。前回のヒーローレベルのアップ後の分 */
 
-    exp_ttl            BIGINT UNSIGNED    DEFAULT 0    NOT NULL,        /* 今までに得た経験値のトータル(仕様変更で再計算が必要になったとき用)。 */
-    exp_now            INT UNSIGNED    DEFAULT 0    NOT NULL,        /* 現在の経験値。前回のヒーローレベルのアップ後の分 */
-    nxe                INT UNSIGNED    DEFAULT 0    NOT NULL,        /* 次回のヒーローレベルアップに必要な経験値 */
+    exp_ttl          BIGINT UNSIGNED DEFAULT 0    NOT NULL,        /* 今までに得た経験値のトータル(仕様変更で再計算が必要になったとき用)。 */
+    exp_now          INT UNSIGNED    DEFAULT 0    NOT NULL,        /* 現在の経験値。前回のヒーローレベルのアップ後の分 */
+    nxe              INT UNSIGNED    DEFAULT 0    NOT NULL,        /* 次回のヒーローレベルアップに必要な経験値 */
 
-    abi_p_bsc        JSON            NOT NULL,
-    abi_m_bsc        JSON            NOT NULL,
+    abi_p_bsc        JSON                         NOT NULL,
+    abi_m_bsc        JSON                         NOT NULL,
 
 
 /*    hp_bsc            INT UNSIGNED    DEFAULT 0    NOT NULL,        /* ライフのデフォルト値。 */
@@ -273,6 +273,32 @@ CREATE TABLE tbl_hero (
 
 ALTER TABLE tbl_hero ADD INDEX idx_hero_save_id (save_id, uniq_id);
 /*ALTER TABLE tbl_hero ADD INDEX idx_hero_save_id2(save_id, team_id, uniq_id); */
+
+CREATE TABLE IF NOT EXISTS tbl_mvpt (
+  id          int         NOT NULL AUTO_INCREMENT,
+  uniq_id     varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
+  cur_url     varchar(99) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
+  team_uid    varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
+  loc_kind    int         DEFAULT 0, /* Unkn:0, Maze:1, Guld:2 */
+  loc_name    varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
+  loc_uid     varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
+  loc_pos_x   int         DEFAULT 0,
+  loc_pos_y   int         DEFAULT 0,
+  loc_pos_z   int         DEFAULT 0,
+  loc_pos_d   int         DEFAULT 99, /* N:0, E:1, S:2, W:3 X:99 */
+  create_time DATETIME    DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  update_time DATETIME    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
+
+    PRIMARY KEY (id),
+    CONSTRAINT save_id_check_for_mvpt  
+        FOREIGN KEY (save_id)  REFERENCES tbl_save(save_id) 
+            ON DELETE RESTRICT 
+            ON UPDATE CASCADE 
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs_ks;
+
+ALTER TABLE tbl_mvpt ADD INDEX idx_mvpt_save_id(save_id, uniq_id);
+
+
 
 
 /*
