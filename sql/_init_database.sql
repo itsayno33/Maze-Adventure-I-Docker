@@ -71,7 +71,7 @@ CREATE TABLE tbl_save (
     point            VARCHAR(100)    CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
 
     mypos            JSON            NOT NULL,
-    all_mvpt         JSON            NOT NULL,
+--    all_mvpt         JSON            NOT NULL,
 
     auto_mode        BOOL            NOT NULL,    /* 自動か手動か */
     is_active        BOOL            DEFAULT true  NOT NULL,    /* ロード可否 */
@@ -188,7 +188,7 @@ ALTER TABLE tbl_guld ADD INDEX idx_guld_save_id(save_id, uniq_id);
 
 
 CREATE TABLE tbl_hero (
-    id               NT              AUTO_INCREMENT, 
+    id               INT             AUTO_INCREMENT, 
     save_id          INT             NOT NULL,    /* tbl_saveのid  */
     uniq_id          VARCHAR(60)     CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
     join_uid         VARCHAR(60)     NOT NULL,    /*保存時点で 所属するチームなりギルドのuniq_id */
@@ -276,10 +276,11 @@ ALTER TABLE tbl_hero ADD INDEX idx_hero_save_id (save_id, uniq_id);
 
 CREATE TABLE IF NOT EXISTS tbl_mvpt (
   id          int         NOT NULL AUTO_INCREMENT,
+  save_id     int         NOT NULL,
   uniq_id     varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
   cur_url     varchar(99) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
   team_uid    varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
-  loc_kind    int         DEFAULT 0, /* Unkn:0, Maze:1, Guld:2 */
+  loc_kind    varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL, /* Unkn:0, Maze:1, Guld:2 */
   loc_name    varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
   loc_uid     varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
   loc_pos_x   int         DEFAULT 0,
