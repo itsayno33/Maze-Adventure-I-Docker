@@ -300,6 +300,44 @@ CREATE TABLE IF NOT EXISTS tbl_mvpt (
 ALTER TABLE tbl_mvpt ADD INDEX idx_mvpt_save_id(save_id, uniq_id);
 
 
+CREATE TABLE IF NOT EXISTS tbl_good (
+  id          INT         NOT NULL AUTO_INCREMENT,
+  save_id     INT         NOT NULL,
+  uniq_id     VARCHAR(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
+  gnrl_ratio  DOUBLE      NOT NULL,
+  is_real     BOOLEAN     NOT NULL,
+  is_orgn     BOOLEAN     NOT NULL,
+  real_lv     INT         NOT NULL,
+
+  my_abi_p    JSON        NOT NULL,
+  my_abi_m    JSON        NOT NULL,
+
+  my_name     VARCHAR(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
+  gnrl_name   VARCHAR(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
+  real_name   VARCHAR(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
+  orgn_name   VARCHAR(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
+
+  value       INT         NOT NULL,
+  gnrl_value  INT         NOT NULL,
+  real_value  INT         NOT NULL,
+  orgn_value  INT         NOT NULL,
+
+  goodkind    INT         NOT NULL,
+  item_num    INT         NOT NULL,
+  val         JSON        DEFAULT NULL,
+  create_time DATETIME    DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  update_time DATETIME    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
+
+    PRIMARY KEY (id),
+    CONSTRAINT save_id_check_for_good  
+        FOREIGN KEY (save_id)  REFERENCES tbl_save(save_id) 
+            ON DELETE RESTRICT 
+            ON UPDATE CASCADE 
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs_ks;
+
+ALTER TABLE tbl_good ADD INDEX idx_mvpt_save_id(save_id, uniq_id);
+
+
 
 
 /*
