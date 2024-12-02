@@ -4,7 +4,7 @@ services:
         container_name: "mai-www"
         volumes:
             - ./www/html/:/var/www/html
-            - D:/Top/Dev/ts/mai/src/html:/var/www/my/mai
+            - E:/Dev/vscode/mai/mai/src/html:/var/www/my/mai
             - ./www/config/apache/my.conf:/etc/apache2/conf-enabled/my.conf
         privileged: true
         environment:
