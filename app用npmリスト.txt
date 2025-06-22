@@ -1,0 +1,17 @@
+npm install -D @types/express @types/node
+npm install -D webpack webpack-cli webpack-dev-server webpack-node-externals
+npm install -D typescript ts-loader ts-node ts-node-dev nodemon
+npm install -D npm-run-all rimraf
+
+
+npm install -D express cookie-parser http-errors morgan ejs
+npm install -D mysql2 dotenv
+
+
+npx express-generator --view=ejs
+
+
+
+npm install node npm
+npm install typescript ts-loader@8 ts-node ts-node-dev webpack@4 webpack-cli@4
+npm install -D @types/express @types/node
