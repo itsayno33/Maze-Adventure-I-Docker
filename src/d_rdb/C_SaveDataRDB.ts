@@ -1,15 +1,15 @@
 
 // 利用クラス等の読み込み
 import   mysql            from "mysql2/promise";
-import { C_DspMessage }   from '../../../mai/src/d_utl/C_DspMessage'; // 画面メッセージの表示用クラス
-import { C_SaveData }     from "../../../mai/src/d_mdl/C_SaveData";
-import { C_SaveInfo }     from "../../../mai/src/d_mdl/C_SaveInfo";
-import { C_MovablePoint } from "../../../mai/src/d_mdl/C_MovablePoint";
+import { C_DspMessage }   from '../d_utl/C_DspMessage'; // 画面メッセージの表示用クラス
+import { C_SaveData }     from "../d_mdl/C_SaveData";
+import { C_SaveInfo }     from "../d_mdl/C_SaveInfo";
+import { C_MovablePoint } from "../d_mdl/C_MovablePoint";
 import { C_TeamRDB }      from "./C_TeamRDB";
 import { C_HeroRDB }      from "./C_HeroRDB";
 import { C_MazeRDB }      from "./C_MazeRDB";
 import { C_GuildRDB }     from "./C_GuildRDB";
-import { C_MvptRDB } from "./C_MvptRDB";
+import { C_MvptRDB }      from "./C_MvptRDB";
 
 type db_connect = mysql.PoolConnection;
 
