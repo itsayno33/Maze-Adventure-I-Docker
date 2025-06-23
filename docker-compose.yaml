@@ -1,0 +1,66 @@
+services:
+    www:
+        build: ./www/
+        container_name: "mai-www"
+        volumes:
+#            - type: bind
+#              source: ./www/html
+#              target: /var/www/html
+#            - type: bind
+#              source: T:/vscode/ts/mai/src/html
+#              target: /var/www/my/mai
+#            - type: bind
+#              source: ./www/config/apache/my.conf
+#              target: /etc/apache2/conf-enabled/my.conf
+            - ./www/html/:/var/www/html
+            - C:/__Dev/mai/src/html:/var/www/my/mai
+            - ./www/config/apache/my.conf:/etc/apache2/conf-enabled/my.conf
+        privileged: true
+        environment:
+            - LANG=ja_JP.UTF-8
+        ports:
+            - "9090:80"
+            - "9099:8080"
+        depends_on:
+            - sql
+    sql:
+        build: ./sql/
+        container_name: "mai-sql"
+        volumes:
+#            - type: volume
+#              source: my_db
+#              target: /var/lib/mysql
+            - my_db:/var/lib/mysql
+#            - ./sql/config/my.cnf:/etc/mysql/conf.d/my.cnf
+        environment:
+            - MYSQL_ROOT_PASSWORD=root
+            - MYSQL_DATABASE=db_mai
+            - MYSQL_USER=itsayno33
+            - MYSQL_PASSWORD=PE333833
+            - LANG=ja_JP.UTF-8
+        ports:
+            - "5306:3306"
+            - "35060:33060"
+    bck:
+#        image: debian:12.7-slim
+        build: ./bck/
+        container_name: "mai-bck"
+        tty: true
+#        user:  "node"
+        working_dir: /home/node/app
+        volumes:
+#            - type: bind
+#              source: ./bck/app
+#              target: /home/node/app
+            - ./bck/app:/home/node/app
+        environment:
+            - PORT=9999
+            - LANG=ja_JP.UTF-8
+        ports:
+            - "9999:9999"
+        depends_on:
+            - sql
+#        command: npx express-generator --ejs && npm install && npm start # ビルド後の初回起動時
+#        command: npm start # 二回目以降の移動時。これに書き換える前にpackage.jsonのstartを『node app.js』に書き換えること
+volumes:
+    my_db:

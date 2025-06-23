@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>Form test</title>
+    </head>
+    <body>
+        <form action="/maiex/ldsv/test" method="POST">
+            <input type="text" name="pid" val="<%= pid %>" />
+            <input type="submit" value="検索" />
+        </form>
+        <hr />
+        <% if (pid < 0) { %>
+            <p>検索結果無し</p>
+        <% } else { %>
+            <ul>
+                <li>ID:   <%= pid    %></li>
+                <li>Name: <%= name   %></li>
+                <li>名前: <%= mbname %></li>
+            </ul>
+        <% } %>
+    </body>
+</html>
