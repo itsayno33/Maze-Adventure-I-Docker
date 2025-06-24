@@ -13,7 +13,7 @@ services:
 #              source: ./www/config/apache/my.conf
 #              target: /etc/apache2/conf-enabled/my.conf
             - ./www/html/:/var/www/html
-            - C:/__Dev/mai/src/html:/var/www/my/mai
+            - C:/__Dev/mai/maicl/src/html:/var/www/my/mai
             - ./www/config/apache/my.conf:/etc/apache2/conf-enabled/my.conf
         privileged: true
         environment:
