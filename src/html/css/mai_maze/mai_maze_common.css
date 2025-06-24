@@ -38,8 +38,8 @@ body.move {
     grid-template-rows:    var(--body_move_rows);
 }
 
+#pane_maze_vw2D.move,
 #pane_maze_vw3D.move,
-#pane_maze_vwCh.move,
 #pane_maze_mesg.move,
 #pane_ctls_boad.move,
 #pane_sytm_logs.move
@@ -66,8 +66,8 @@ body.menu {
 #pane_sytm_logs.menu
 {display: block;}
 
+#pane_maze_vw2D.menu,
 #pane_maze_vw3D.menu,
-#pane_maze_vwCh.menu,
 #pane_ldsv_list.menu,
 #pane_ldsv_data.menu,
 #pane_maze_mesg.menu 
@@ -89,8 +89,8 @@ body.ldsv {
 #pane_sytm_logs.ldsv
 {display: block;}
 
+#pane_maze_vw2D.ldsv,
 #pane_maze_vw3D.ldsv,
-#pane_maze_vwCh.ldsv,
 #pane_menu_list.ldsv,
 #pane_maze_mesg.ldsv 
 {display: none; }
@@ -99,7 +99,6 @@ body.ldsv {
 #pane_header    {grid-area: header;}
 #pane_maze_vw2D {grid-area: view2d;}
 #pane_maze_vw3D {grid-area: view3d;}
-#pane_maze_vwCh {grid-area: viewCh;}
 #pane_menu_list {grid-area: menu_l;}
 #pane_ldsv_list {grid-area: ldsv_l;}
 #pane_ldsv_data {grid-area: ldsv_d;}
@@ -267,6 +266,7 @@ pre#maze_viewCh_pre {
     text-align:   center;
     position:     relative;
 }
+
 #pane_maze_vw3D {
     text-align: center;
 }
