@@ -97,6 +97,7 @@ body.ldsv {
 
 
 #pane_header    {grid-area: header;}
+#pane_maze_vw2D {grid-area: view2d;}
 #pane_maze_vw3D {grid-area: view3d;}
 #pane_maze_vwCh {grid-area: viewCh;}
 #pane_menu_list {grid-area: menu_l;}

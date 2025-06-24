@@ -3,23 +3,23 @@ import { _min, _round, _max } from '../d_utl/F_Math';
 import { g_maze, g_team } from "./global_for_maze";
 
 let div: HTMLDivElement;
-let pre: HTMLPreElement;
+let cvs: HTMLCanvasElement;
 
 let view_wdth        = 0;
 let view_hght        = 0;
 let map_wdth         = 0;
 let map_hght         = 0;
-let font_size:number = 0;
-let line_hght:number = 0;
+let size_x: number   = 0;
+let size_y: number   = 0;
 
-export function init_mazeCh(): void {
-    div = document.getElementById('div_maze_vwCh')   as HTMLDivElement;
-    pre = document.getElementById('maze_viewCh_pre') as HTMLPreElement;
-    calc_viewCh_width();
+export function init_maze2D(): void {
+    div = document.getElementById('div_maze_vw2D')      as HTMLDivElement;
+    cvs = document.getElementById('maze_view2D_canvas') as HTMLCanvasElement;
+    calc_view2D_width();
 }
 
 // 【初期設定】ViewChの横幅をCSSから読み込んで適合する文字のサイズを計算してセットする
-function calc_viewCh_width(): void {
+function calc_view2D_width(): void {
 
     view_wdth  = div.clientWidth;
     view_hght  = div.clientHeight;
@@ -30,43 +30,44 @@ function calc_viewCh_width(): void {
     const row    = g_maze.get_y_max() + 1;
     const row_px = view_hght / row;
 
-    font_size   = _round(_max([15.0, _round(1.00 *  _min([col_px, row_px]), 2)]), 0);
-    line_hght   = _round(_max([15.0, _round(1.00 *  _min([col_px, row_px]), 2)]), 0);
+    size_x       = _round(_max([15.0, _round(1.00 *  _min([col_px, row_px]), 2)]), 0);
+    size_y       = _round(_max([15.0, _round(1.00 *  _min([col_px, row_px]), 2)]), 0);
 
-    map_wdth    = font_size * col;
-    map_hght    = line_hght * col;
-
-    pre.setAttribute('width',  map_wdth.toString());
-    pre.setAttribute('height', map_hght.toString());
-    pre.style.setProperty('font-size',  `${font_size}px`);
-    pre.style.setProperty('line-height',`${line_hght}px`);
+/*
+    cvs.setAttribute('width',  map_wdth.toString());
+    cvs.setAttribute('height', map_hght.toString());
+    cvs.style.setProperty('font-size',  `${font_size}px`);
+    cvs.style.setProperty('line-height',`${line_hght}px`);
+*/
 }
 
-function calc_viewCh_top(): void {
+function calc_view2D_top(): void {
 
     view_wdth  = div.clientWidth;
     view_hght  = div.clientHeight;
 
     const pd = g_team.get_pd();
 
-    let top_x =  view_wdth / 2 - (pd.x + 1) * font_size;
+    let top_x =  view_wdth / 2 - (pd.x + 1) * size_x;
 //    if (top_x < -view_wdth / 2) top_x = -view_wdth / 2;
 //    if (top_x > map_wdth - view_wdth) top_x = map_wdth - view_wdth;
 
-    let top_y =  view_hght / 2 - (pd.y + 1) * line_hght;
+    let top_y =  view_hght / 2 - (pd.y + 1) * size_y;
 //    if (top_y < -view_hght / 2) top_y = -view_hght / 2; // バグ対策の適当修正
 //    if (top_y > map_hght - view_hght) top_y = map_hght - view_hght;
 
-    pre.style.setProperty('left',      `${top_x}px`);
-    pre.style.setProperty('top',       `${top_y}px`);
+/*
+    cvs.style.setProperty('left',      `${top_x}px`);
+    cvs.style.setProperty('top',       `${top_y}px`);
+*/
 }
 
-export function display_mazeCh(): void { 
-    if (pre !== null) {pre.innerText = to_string();calc_viewCh_top()}
+export function display_maze2D(): void { 
+    if (cvs !== null) {cvs.innerText = to_2D();calc_view2D_top()}
     else g_mes.warning_message('Can not found pre#Maze_viewCh_pre!!');
 }
 
-function to_string(): string {
+function to_2D(): string {
     const size_x = g_maze.get_x_max();
     const size_y = g_maze.get_y_max();
     const floor  = g_team.get_pd().z
