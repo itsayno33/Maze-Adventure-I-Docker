@@ -1,7 +1,6 @@
 import { g_debug, g_mes } from "../d_cmn/global";
 import { C_MazeObjView, T_Rect } from "../d_mdl/C_MazeObjView";
 import { _min, _round, _max } from '../d_utl/F_Math';
-import { C_MazeCell } from "../html/js/mai_guld";
 import { g_maze, g_team } from "./global_for_maze";
 
 let div: HTMLDivElement;

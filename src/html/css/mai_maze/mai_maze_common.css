@@ -242,6 +242,14 @@ button#r_cp1 {
     font-size:  var(--view_button_font_size, 0.8rem);
 }
 
+#div_maze_vw2D {
+    display:      grid;
+    width:        var(--view2D_wdth,        320px);
+    height:       var(--view2D_hght,        320px); 
+    border:       thick double #ccaa33;
+    overflow:     hidden;
+}
+
 #div_maze_vwCh {
     display:      grid;
     width:        var(--viewCh_pre_wdth,        320px);
