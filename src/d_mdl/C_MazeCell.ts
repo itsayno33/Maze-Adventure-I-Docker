@@ -5,6 +5,7 @@ import { T_MzKind }  from "./T_MzKind";
 import { JSON_Any }  from "./C_SaveInfo";
 import { C_MazeObj, I_MazeObj, JSON_MazeObj } from "./C_MazeObj";
 import { T_Wall }    from './C_Wall';
+import { T_Rect } from "./C_MazeObjView";
 
 
 export interface JSON_MazeCell extends JSON_Any {
@@ -51,6 +52,10 @@ export class C_MazeCell  {
             if (letter === key) return T_MzKind[key];
         }
         return T_MzKind.NoDef;
+    }
+
+    public drow2D(rect: T_Rect): void {
+        this.my_obj.view()?.drow2D(rect);
     }
 
     public drow3D(frot: T_Wall, back: T_Wall): void {
