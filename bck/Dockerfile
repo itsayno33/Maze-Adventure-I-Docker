@@ -40,7 +40,8 @@ EXPOSE 3000
 # && npm start
 
 # 以下、二回目以降の起動時の記述。packege.jsonのstartを「node ./app.js」に書き換えておくこと
-#CMD node start
+#CMD npm run start
 
-CMD ["node", "start"]
-#CMD ["/bin/bash", "-c", "node", "start"]
+#CMD ["npm", "run", "start"]
+#CMD ["/bin/bash", "-c", "npm", "run", "start"]
+CMD npm run start
