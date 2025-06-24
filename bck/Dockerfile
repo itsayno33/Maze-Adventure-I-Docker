@@ -1,5 +1,6 @@
 #FROM node:23.1.0-bullseye-slim
-FROM ubuntu:24.10
+#FROM ubuntu:24.10
+FROM ubuntu:25.04
 #FROM debian:12.7-slim
 
 # コマンドツール類のインストール 
@@ -27,7 +28,7 @@ RUN npm install -g mysql2
 RUN npm install -g dotenv
 RUN npm install -g ejs 
 
-EXPOSE 3000
+# EXPOSE 3000
 
 # 以下、ビルド後初回起動時(expressのTEMPLATE作成)のコマンド
 #CMD cd /home/node/app \
@@ -40,8 +41,6 @@ EXPOSE 3000
 # && npm start
 
 # 以下、二回目以降の起動時の記述。packege.jsonのstartを「node ./app.js」に書き換えておくこと
-#CMD npm run start
 
-#CMD ["npm", "run", "start"]
-#CMD ["/bin/bash", "-c", "npm", "run", "start"]
-CMD npm run start
+ENTRYPOINT [ "npm" ]
+CMD [ "start" ]
