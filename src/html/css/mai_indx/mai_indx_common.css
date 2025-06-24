@@ -1,0 +1,147 @@
+@charset "utf-8";
+
+
+/* 標準レイアウト */
+
+* {
+    margin: 0;
+}
+
+img {
+    width: 200px;
+    height: auto;
+}
+
+/* レイアウトCSSの判別　*/
+h1::after {
+    content: "\A『" var(--layout_mode, "Common") "』レイアウト\A";
+    white-space: pre;
+
+    color: var(--h1_text_color, darkgoldenrod);
+    font-family: var(--header_font_family, sans-serif);
+    font-size: var(--header_font_size, 18px);
+    line-height: var(--header_line_heght, 23px);
+}
+
+
+/* 全体のレイアウト関係 */
+body {
+    background-color: var(--body_lyt_bgcolor,#ccffcc);
+    display: grid;
+}
+
+
+#indx_head_pane, 
+#indx_menu_list_pane, 
+#sytm_logs_pane,
+#foot_pane 
+{display: block;}
+
+/*body.menu { */
+body {
+    gap:                   var(--body_indx_gap, 1rem 1.5rem);
+    grid-template-columns: var(--body_indx_cols);
+    grid-template-rows:    var(--body_indx_rows);
+}
+
+
+/* Headerの見栄え */
+header {
+    justify-self: center;
+    align-self: baseline;
+
+    display:grid;
+}
+
+/* Footerの見栄え */
+footer {
+    display: grid;
+    justify-self:center;
+    align-self: auto;
+}
+
+footer img {
+    width: 50px;
+}
+
+footer a {
+    text-decoration: none;
+}
+footer p {
+    text-align: right;
+
+    color: var(--footer_text_color, darkgreen);
+    font-family: var(--footer_font_family, serif);
+    font-size: var(--footer_font_size, 12px);
+    line-height: var(--footer_line_heght, 158px);
+}
+
+/* 大タイトルのスタイル */
+h1 {
+    margin: var(--h1_margin, 10px);
+    text-align: center;
+
+    color:       var(--h1_text_color,darkgreen);
+    font-family: var(--h1_font_family, serif);
+    font-size:   var(--h1_font_size,   22px);
+    line-height: var(--h1_line_heght,  26px);
+}
+
+
+#indx_menu_list 
+{
+    color:            chocolate;
+    background-color: cornsilk;
+}
+
+#indx_menu_list li 
+{
+    margin-bottom: var(--list_margin_button, 0.5rem);
+    font-size:     var(--list_font,  1.0rem);
+    line-height:   var(--list_heght, 1.2rem);
+}
+
+#guld_head_pane {
+    font-size:   var(--view_message_font_size, 1.1rem);
+    line-height: var(--view_message_height,    3.5rem);
+}
+
+#debug_mode {
+    float: left;
+}
+#debug_mode.normal {
+    color:            var(--debug_button_fwcolor, #008000);
+    background-color: var(--debug_button_bgcolor, #f0f8ff);
+}
+
+#debug_mode.debug {
+    color:            var(--debug_button_fwcolor, #ffffff);
+    background-color: var(--debug_button_bgcolor, #ff0000);
+}
+
+#alert_mode {
+    float: left;
+}
+#alert_mode.normal {
+    color:            var(--debug_button_fwcolor, #808000);
+    background-color: var(--debug_button_bgcolor, #f0f8ff);
+}
+
+p#indx_head_message {
+    clear: both;
+}
+
+#sytm_logs_pane {
+/*    width:       var(--message_width,        33rem); */
+    font-size:    var(--message_font_size,   0.6rem);
+    line-height:  var(--message_line_height, 0.7rem);
+    max-height:   calc( var(--message_line_height, 0.7rem) * 6);
+    overflow-y:   scroll;
+    justify-self: auto;
+    align-self:   auto;
+}
+
+#sytm_logs_pane p {
+    word-break: break-all;
+}
+

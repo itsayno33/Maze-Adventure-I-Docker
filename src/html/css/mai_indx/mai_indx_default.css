@@ -1,0 +1,84 @@
+@charset "utf-8";
+
+/* 定数定義(基本値) */
+
+:root {
+    --layout_mode: "Default";
+    
+    --body_lyt_bgcolor: azure;
+
+    --header_text_color:darkgreen;
+    --header_font_family: sans-serif;
+    --header_font_size: 12px;
+    --header_line_height: 15px;
+
+    --icon_image_width:  50px;
+    --icon_cell_padding: 10px;
+    --icon_cell_width:   calc( var(--icon_image_width, 50px) + calc( var(--icon_cell_padding) * 2));
+
+    --body_lyt_row_header_height: calc( var(--icon_image_width, 50px) + var(--header_line_heght, 15px) * 2);
+
+    --footer_text_color: darkgreen;
+    --footer_font_family: 'Times New Roman', Times, serif;
+    --footer_font_size: 12px;
+    --footer_line_heght: 15px;
+
+    --h1_margin: 10px;
+    --h1_text_color: darkgoldenrod;
+    --h1_font_family: serif;
+    --h1_font_size: 36px;
+    --h1_line_heght: 38px;
+
+
+    --body_indx_gap: 0 0;
+    --body_indx_cols: 
+            3rem
+            [head-start foot-start mn_l-start mssg-start]
+            auto
+            [mn_l-end]
+            auto
+            [head-end foot-end  mssg-end]
+            3rem
+            ;
+    --body_indx_rows:
+            [head-start]
+            auto
+            [head-end mn_l-start ctls-start]
+            1fr
+            [mn_l-end ctls-end mssg-start]
+            auto
+            [mssg-end foot-start]
+            100px
+            [foot-end]
+            ;
+
+
+    --detail_font:      0.9rem;
+    --detait_heght:     1.1rem;
+        
+    --view_message_font_size: 1.1rem;
+    --view_message_height:    3.5rem;
+
+
+    --message_width:        33rem;
+    --message_font_size:   0.6rem;
+    --message_line_height: 0.7rem;
+
+
+    --hero_info_grid_gap: 0.5rem 1.0rem;
+    --hero_info_grid_template:
+        "_hr_name  _hr_lv    _hr_exp   _hr_skp"
+        "_hr_state _hr_sex   _hr_age   _hr_gold"
+        "_hr_hp    _hr_hp    _hr_mp    _hr_mp"
+        "_hr_atk_p _hr_def_p _hr_atk_m _hr_def_m"
+        "_hr_quc_p _hr_cnc_p _hr_quc_m _hr_cnc_m"
+        "_hr_str_p _hr_pwr_p _hr_str_m _hr_pwr_m"
+        "_hr_vit_p _hr_dex_p _hr_vit_m _hr_dex_m"
+        "_hr_agi_p _hr_tec_p _hr_agi_m _hr_tec_m"
+        "_hr_luk_p _hr_luk_p _hr_luk_m _hr_luk_m"
+        ;
+
+    --hres_list_count: 4;
+
+}
+
