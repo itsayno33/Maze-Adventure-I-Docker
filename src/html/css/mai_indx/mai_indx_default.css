@@ -33,21 +33,19 @@
     --body_indx_gap: 0 0;
     --body_indx_cols: 
             3rem
-            [head-start foot-start mn_l-start mssg-start]
+            [head-start menu-start logs-start foot-start]
             auto
-            [mn_l-end]
-            auto
-            [head-end foot-end  mssg-end]
+            [head-end   menu-end   logs-end   foot-end]
             3rem
             ;
     --body_indx_rows:
             [head-start]
             auto
-            [head-end mn_l-start ctls-start]
+            [head-end menu-start]
             1fr
-            [mn_l-end ctls-end mssg-start]
+            [menu-end logs-start]
             auto
-            [mssg-end foot-start]
+            [logs-end foot-start]
             100px
             [foot-end]
             ;

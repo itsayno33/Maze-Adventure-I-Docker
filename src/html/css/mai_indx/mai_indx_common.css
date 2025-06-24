@@ -145,3 +145,26 @@ p#indx_head_message {
     word-break: break-all;
 }
 
+
+
+
+/* *****************************
+ *  グリッドレイアウトの定義
+ * ***************************** */
+
+#indx_head_pane {
+    grid-area: head;
+}
+
+#indx_menu_list_pane {
+    grid-area: menu;
+}
+
+#sytm_logs_pane {
+    grid-area: logs;
+}
+
+#foot_pane {
+    grid-area: foot;
+}
+

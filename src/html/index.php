@@ -184,11 +184,11 @@
 </head>
 <body id='body'>
     <article id='indx_head_pane'>
-        <h1 class='h1'>ダンジョンアドベンチャーⅠ</h1>
-        <p id='indx_head_message'></p>
+        <h1 class='h1' id='h1'>ダンジョンアドベンチャーⅠ</h1>
+        <p id='head_message'></p>
     </article>
     <article id='indx_menu_list_pane'>
-        <h2>街の入り口</h2>
+        <h2>冒険の入り口</h2>
         <ul id='indx_menu_list'>
             <li id='indx_guld'>
                 <a href='mai_guld.php'>冒険者ギルド</a>

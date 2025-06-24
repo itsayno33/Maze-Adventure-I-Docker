@@ -330,7 +330,7 @@ function new_team(): Team {
         ?>
     </article>
     <footer id='pane_footer'>
-        <a href='../md/'><img src='./icon-img/kkrn_icon_home_3.png' /></a>
+        <a href='../mai/'><img src='./icon-img/kkrn_icon_home_3.png' /></a>
         <p class='foot_print'>Maze Adventure Ⅰ.</p>
     </footer>
     <script id='ts_caller'>

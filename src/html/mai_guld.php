@@ -321,7 +321,7 @@ function new_team(): Team {
         ?>
     </article>
     <footer id='foot_pane'>
-        <a href='../../md/'><img src='./icon-img/kkrn_icon_home_3.png' /></a>
+        <a href='../../mai/'><img src='./icon-img/kkrn_icon_home_3.png' /></a>
         <p class='foot_print'>Guild in Maze Adventure I.</p>
     </footer>
     <script>
