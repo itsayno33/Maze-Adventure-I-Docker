@@ -37,8 +37,8 @@ function calc_view2D_width(): void {
     const row    = g_maze.get_y_max() + 0;
     const row_px = view_hght / row;
 
-    c_size_x     = _round(_max([15.0, _round(1.00 *  _min([col_px, row_px]), 2)]), 0);
-    c_size_y     = _round(_max([15.0, _round(1.00 *  _min([col_px, row_px]), 2)]), 0);
+    c_size_x     = _max([0.1, _round(1.00 *  _min([col_px, row_px]), 2)]);
+    c_size_y     = _max([0.1, _round(1.00 *  _min([col_px, row_px]), 2)]);
 
 /*
     cvs.setAttribute('width',  map_wdth.toString());
