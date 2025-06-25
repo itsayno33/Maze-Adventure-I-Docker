@@ -137,7 +137,7 @@ class C_MazeCellFloor extends C_MazeCell {
             show3D:  '1',
             pad_t: 0.0, pad_d: 0.0, pad_s: 0.0,
             col_f: '', col_b: '', col_s: '', col_t: '#6666ff', col_d: '', 
-            col_l: '#9999ff', col_2: '#6666ff', 
+            col_l: '#9999ff', col_2: '#3333ff', 
         }
         super(j);
     }
