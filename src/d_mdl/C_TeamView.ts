@@ -5,6 +5,8 @@ import { C_Team, JSON_Team } from "./C_Team";
 import { T_Wall }            from "../d_mdl/C_Wall";
 import { C_MazeObjView, I_MazeObjView, JSON_MazeObjView, T_Rect }  from "./C_MazeObjView";
 
+type T_xy = {x: number, y: number};
+
 export class C_CurrentTeamView  implements I_MazeObjView {
     public  static newObj(j?: JSON_Team): I_MazeObjView {
         const team = new C_Team(j);
@@ -55,13 +57,40 @@ export class C_CurrentTeamView  implements I_MazeObjView {
         con.lineTo(r.dl.x, r.dl.y);
         con.closePath();
     
-        con.fillStyle   = "#ff0000";
+        con.fillStyle   = "#ff3333";
+        con.fill();
+    
+        // Draw the arrow
+        switch (this.my_team.walk().get_d()) {
+            case T_Direction.N:  // ↑
+                this.drow2D_arrow({x: (r.tl.x + r.tr.x)/2, y:r.tl.y}, r.dl, r.dr);break
+            case T_Direction.E:  // →
+                this.drow2D_arrow({y: (r.tr.y + r.dr.y)/2, x:r.tr.x}, r.tl, r.dl);break;
+            case T_Direction.S: // ↓
+                this.drow2D_arrow({x: (r.dl.x + r.dr.x)/2, y:r.dl.y}, r.tr, r.tl);break;
+            case T_Direction.W: // ←
+                this.drow2D_arrow({y: (r.tl.y + r.dl.y)/2, x:r.tl.x}, r.dr, r.tr);break;
+        }
+    }
+
+
+    private drow2D_arrow(top: T_xy, left: T_xy, right: T_xy): void {
+        const con = C_MazeObjView.get_context2D();
+        if (con === undefined) return;
+
+        con.beginPath();
+        con.moveTo(top.x, top.y);
+        con.lineTo(right.x, right.y);
+        con.lineTo(left.x, left.y);
+        con.closePath();
+
+        con.fillStyle   = "#ff6666";
         con.fill();
 
         con.strokeStyle = "#ff9999";
         con.lineWidth   = 3;
         con.stroke();
-
+        
     }
 
     public encode(): JSON_MazeObjView {return {cname: 'CurrentTeamView'}}
