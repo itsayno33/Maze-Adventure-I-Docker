@@ -31,10 +31,10 @@ function calc_view2D_width(): void {
     view_wdth  = div.clientWidth;
     view_hght  = div.clientHeight;
 
-    const col    = g_maze.get_x_max() + 1;
+    const col    = g_maze.get_x_max() + 0;
     const col_px = view_wdth  / col;
 
-    const row    = g_maze.get_y_max() + 1;
+    const row    = g_maze.get_y_max() + 0;
     const row_px = view_hght / row;
 
     c_size_x     = _round(_max([15.0, _round(1.00 *  _min([col_px, row_px]), 2)]), 0);
@@ -55,11 +55,11 @@ function calc_view2D_top(): void {
 
     const pd = g_team.get_pd();
 
-    let top_x =  view_wdth / 2 - (pd.x - 1) * c_size_x;
+    let top_x =  view_wdth / 2 - pd.x * c_size_x;
 //    if (top_x < -view_wdth / 2) top_x = -view_wdth / 2;
 //    if (top_x > map_wdth - view_wdth) top_x = map_wdth - view_wdth;
 
-    let top_y =  view_hght / 2 - (pd.y + 0) * c_size_y;
+    let top_y =  view_hght / 2 - pd.y * c_size_y;
 //    if (top_y < -view_hght / 2) top_y = -view_hght / 2; // バグ対策の適当修正
 //    if (top_y > map_hght - view_hght) top_y = map_hght - view_hght;
 
@@ -87,7 +87,7 @@ function to_2D(): void {
         show3D: '1',
         pad_t: 0.0, pad_d: 0.0, pad_s: 0.0,
         col_f: '', col_b: '', col_s: '', col_t: '', col_d: '', 
-        col_l: '#0000ff', col_2: '#cccccc',
+        col_l: '#0000ff', col_2: '#333333',
     })
 
     const cell_unexp = C_MazeObjView.newObj({
@@ -95,7 +95,7 @@ function to_2D(): void {
             show3D:  '1',
             pad_t: 0.0, pad_d: 0.0, pad_s: 0.0,
             col_f: '', col_b: '', col_s: '', col_t: '', col_d: '', 
-            col_l: '#0000ff', col_2: '#333333', 
+            col_l: '#0000ff', col_2: '#ff00ff', 
     })
 
     for (let y = 0; y < size_y; y++) {
@@ -110,11 +110,12 @@ function to_2D(): void {
             if (!g_debug.isON() && g_maze.is_masked_xyz(x, y, floor)) {
                 cell_masks.drow2D(rect_2d);
             } else {
-                const obj = g_maze.get_obj_xyz(x, y, floor);
-                if (obj === null || obj.view() === undefined) {
-                    cell_unexp.drow2D(rect_2d);
-                } else {
-                    obj.view()?.drow2D(rect_2d);
+                const obj_view = g_maze.get_obj_xyz(x, y, floor)?.view();
+                if (obj_view !== undefined) obj_view?.drow2D(rect_2d);
+                else {
+                    const flr_view = g_maze.get_cell_xyz(x, y, floor)?.getObj()?.view();
+                    if (flr_view !== undefined) flr_view?.drow2D(rect_2d);
+                    else cell_unexp.drow2D(rect_2d);
                 }
             }
         }
