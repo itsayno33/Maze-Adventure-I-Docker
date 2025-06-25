@@ -51,6 +51,10 @@ import {
 import { _irand } from "../d_utl/F_Rand";
 import { C_MazeObj } from "../d_mdl/C_MazeObj";
 
+
+import { C_OnOffButton } from '../d_ctl/C_OnOffButton'
+export let g_view2: C_OnOffButton;
+
 export function init_before_games(): void {
     switch (g_start_env.mode) {
         case 'new':
@@ -117,7 +121,11 @@ export function init_after_loaded_DOM(): void {
     g_ctls = C_DefaultCtls.getObj(); 
     g_vsw  = C_SwitchView.getObj(); 
 
+    const btn = document.getElementById('view2_mode') as HTMLButtonElement;
+    g_view2 = C_OnOffButton.getObj(btn, {});
+
     init_debug_mode();
+    init_view2_mode();
     stop_double_click(); 
 
     init_all_mode();
@@ -161,6 +169,45 @@ function toggle_debug_mode(yn: boolean): void {
     const display = yn ? 'block' : 'none';
     alert?.style.setProperty('display', display);
 
+}
+
+
+export function init_view2_mode(): void {
+    try {
+        g_view2.setObj({
+            yn:        true,
+            onName:   '2D',
+            offName:  'Ch',
+            onClass:  'd2',
+            offClass: 'ch',
+        });
+        g_view2.addFnc(toggle_view2_mode);//g_view2.setON();
+
+        const btn = document.getElementById('view2_mode') as HTMLButtonElement;
+        window.addEventListener("keydown",(event)=>{
+            switch (event.code) {
+                case "Digit2":
+                case "KeyV":
+                    btn.click();
+            }
+        });
+        toggle_view2_mode(true); // 初期状態は2D表示
+    } catch (err) {return};
+}
+
+function toggle_view2_mode(yn: boolean): void {
+
+    const ch = document.getElementById('div_maze_vwCh') as HTMLDivElement;
+    const d2 = document.getElementById('div_maze_vw2D') as HTMLDivElement;
+    if (yn) {
+        ch.style.setProperty('display', 'none');
+        d2.style.setProperty('display', 'block');
+        display_maze2D();
+    } else {
+        ch.style.setProperty('display', 'block');
+        d2.style.setProperty('display', 'none');
+        display_mazeCh();
+    }
 }
 
 
