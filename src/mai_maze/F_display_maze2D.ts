@@ -16,6 +16,12 @@ let c_size_y: number = 0;
 export function init_maze2D(): void {
     div = document.getElementById('div_maze_vw2D')      as HTMLDivElement;
     cvs = document.getElementById('maze_view2D_canvas') as HTMLCanvasElement;
+
+    let cxt = cvs.getContext('2d');
+    if (cxt === null) {
+        cxt = undefined as unknown as CanvasRenderingContext2D;
+    }
+    C_MazeObjView.set_context2D(cxt);
     calc_view2D_width();
 }
 
@@ -49,21 +55,26 @@ function calc_view2D_top(): void {
 
     const pd = g_team.get_pd();
 
-    let top_x =  view_wdth / 2 - (pd.x + 1) * c_size_x;
+    let top_x =  view_wdth / 2 - (pd.x - 1) * c_size_x;
 //    if (top_x < -view_wdth / 2) top_x = -view_wdth / 2;
 //    if (top_x > map_wdth - view_wdth) top_x = map_wdth - view_wdth;
 
-    let top_y =  view_hght / 2 - (pd.y + 1) * c_size_y;
+    let top_y =  view_hght / 2 - (pd.y + 0) * c_size_y;
 //    if (top_y < -view_hght / 2) top_y = -view_hght / 2; // バグ対策の適当修正
 //    if (top_y > map_hght - view_hght) top_y = map_hght - view_hght;
 
     cvs.style.setProperty('left',      `${top_x}px`);
     cvs.style.setProperty('top',       `${top_y}px`);
+
+//        alert(`View2D: ${view_wdth}x${view_hght} px, Cell: ${c_size_x}x${c_size_y} px`);
+//        alert(`View2D: ${top_x}px * ${top_y}px, PD: ${pd.x},${pd.y},${pd.z}`);
 }
 
 export function display_maze2D(): void { 
     if (cvs !== null) {to_2D();calc_view2D_top()}
-    else g_mes.warning_message('Can not found pre#Maze_viewCh_pre!!');
+    else {
+        g_mes.warning_message('Can not found pre#Maze_view2D');
+    }
 }
 
 function to_2D(): void {
@@ -73,7 +84,7 @@ function to_2D(): void {
 
     const cell_masks = C_MazeObjView.newObj({
         layer: 0, letter: 'Ｘ', 
-        show3D: '0',
+        show3D: '1',
         pad_t: 0.0, pad_d: 0.0, pad_s: 0.0,
         col_f: '', col_b: '', col_s: '', col_t: '', col_d: '', 
         col_l: '#0000ff', col_2: '#cccccc',
@@ -81,10 +92,10 @@ function to_2D(): void {
 
     const cell_unexp = C_MazeObjView.newObj({
             layer: 0, letter: '謎', 
-            show3D:  '0',
+            show3D:  '1',
             pad_t: 0.0, pad_d: 0.0, pad_s: 0.0,
             col_f: '', col_b: '', col_s: '', col_t: '', col_d: '', 
-            col_l: '', col_2: '', 
+            col_l: '#0000ff', col_2: '#333333', 
     })
 
     for (let y = 0; y < size_y; y++) {

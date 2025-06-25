@@ -18,6 +18,7 @@ import {
     g_ctls,
     g_ds, 
 } from "./global_for_maze";
+import { display_maze2D } from "./F_display_maze2D";
 
 const ctls_move_nor = {
     name: 'move_nor', 
@@ -174,8 +175,8 @@ export function do_move_bottom_half(blink_mode: string): void {   //alert('Floor
         clear_mask_around_the_team(); 
         if (mask_cleared()) alert('この階を制覇しました！！') /* **************************** */
     }
+    display_maze2D();                           // ********** 作成中 *************
     display_mazeCh();
-//    display_maze2D();                           // ********** 作成中 *************
 }
 
 function mask_cleared(): boolean {return g_maze.is_cleared(g_team.get_pd())}

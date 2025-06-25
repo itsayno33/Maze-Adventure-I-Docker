@@ -411,7 +411,7 @@ function drow3D_cell_ceiling(
 }
 
 function drow2D_cell(r: T_Rect, fill: string|null, line: string|null): void {
-    const con = C_MazeObjView.get_context2D();
+    const con = C_MazeObjView.get_context2D();   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     if (con === undefined) return;
 
     con.beginPath();
