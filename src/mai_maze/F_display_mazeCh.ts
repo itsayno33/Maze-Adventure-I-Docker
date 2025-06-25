@@ -25,10 +25,10 @@ function calc_viewCh_width(): void {
     view_hght  = div.clientHeight;
 
     const col    = g_maze.get_x_max() + 1;
-    const col_px = view_wdth  / col;
+    const col_px = pre.clientWidth  / col;
 
     const row    = g_maze.get_y_max() + 1;
-    const row_px = view_hght / row;
+    const row_px = pre.clientHeight / row;
 
     font_size   = _round(_max([15.0, _round(1.00 *  _min([col_px, row_px]), 2)]), 0);
     line_hght   = _round(_max([15.0, _round(1.00 *  _min([col_px, row_px]), 2)]), 0);
@@ -50,14 +50,12 @@ function calc_viewCh_top(): void {
     const pd = g_team.get_pd();
 
     let top_x =  view_wdth / 2 - (pd.x + 1) * font_size;
-    if (top_x > map_wdth - view_wdth) top_x = map_wdth - view_wdth; // 左端制限
-    if (top_x < 0) top_x = 0; // 右端制限
+    if (top_x > 0) top_x = 0; // 左端制限
 //    if (top_x < -view_wdth / 2) top_x = -view_wdth / 2;
 //    if (top_x > map_wdth - view_wdth) top_x = map_wdth - view_wdth;
 
     let top_y =  view_hght / 2 - (pd.y + 1) * line_hght;
-    if (top_y > map_hght - view_hght) top_y = map_hght - view_hght; // 上端制限
-    if (top_y < 0) top_y = 0; // 下端制限
+    if (top_y > 0) top_y = 0; // 上端制限
 //    if (top_y < -view_hght / 2) top_y = -view_hght / 2; // バグ対策の適当修正
 //    if (top_y > map_hght - view_hght) top_y = map_hght - view_hght;
 
