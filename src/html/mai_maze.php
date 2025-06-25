@@ -313,6 +313,7 @@ function new_team(): Team {
         <div id='ctls_boad'>
             <button id='debug_mode' type='button' name='debug_mode_button' value='false'>通常</button>
             <button id='alert_mode' type='button' name='alert_mode_button' value='false'>ログ</button>
+            <button id='view2_mode' type='button' name='view2_mode_button' value='true' >２D</button>
             <button id='u_arr' type='button' name='u_arr' value='U'>↑</button>
             <button id='d_arr' type='button' name='d_arr' value='D'>↓</button>
             <button id='l_arr' type='button' name='l_arr' value='L'>←</button>
