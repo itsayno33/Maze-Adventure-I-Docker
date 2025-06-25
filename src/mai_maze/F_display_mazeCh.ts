@@ -51,13 +51,11 @@ function calc_viewCh_top(): void {
 
     let top_x =  view_wdth / 2 - (pd.x + 1) * font_size;
     if (top_x > 0) top_x = 0; // 左端制限
-//    if (top_x < -view_wdth / 2) top_x = -view_wdth / 2;
-//    if (top_x > map_wdth - view_wdth) top_x = map_wdth - view_wdth;
+    if (top_x < view_wdth - map_wdth) top_x = view_wdth - map_wdth; // 右端制限
 
     let top_y =  view_hght / 2 - (pd.y + 1) * line_hght;
     if (top_y > 0) top_y = 0; // 上端制限
-//    if (top_y < -view_hght / 2) top_y = -view_hght / 2; // バグ対策の適当修正
-//    if (top_y > map_hght - view_hght) top_y = map_hght - view_hght;
+    if (top_y < view_hght - map_hght) top_y = view_hght - map_hght; // 下端制限
 
     pre.style.setProperty('left',      `${top_x}px`);
     pre.style.setProperty('top',       `${top_y}px`);
