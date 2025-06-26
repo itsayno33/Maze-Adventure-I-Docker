@@ -42,6 +42,7 @@ export class C_CurrentTeamView  implements I_MazeObjView {
     public col_d():   string|null {return null} 
     public col_l():   string|null {return null} 
     public col_2():   string|null {return null} 
+    public col_L():   string|null {return null} 
 
     public drow3D(frot: T_Wall, back: T_Wall): void {}
 

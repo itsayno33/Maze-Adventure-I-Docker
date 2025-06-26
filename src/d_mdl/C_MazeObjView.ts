@@ -25,6 +25,7 @@ export interface I_MazeObjView extends I_Abstract {
     col_l:   ()=>string|null; //ラインの色(CSSカラー)
 
     col_2:   ()=>string|null; //2Dマップの色(CSSカラー)
+    col_L:   ()=>string|null; //2Dマップの線の色(CSSカラー)
 }
 
 export interface JSON_MazeObjView extends JSON_Any {
@@ -42,6 +43,7 @@ export interface JSON_MazeObjView extends JSON_Any {
     col_d?:  string|null, // オブジェクト底面のCSSカラー 
     col_l?:  string|null, // オブジェクトの線のCSSカラー 
     col_2?:  string|null, // 2Dマップの面のCSSカラー
+    col_L?:  string|null, // 2Dマップの線のCSSカラー
 }
 
 export type T_xy   = {x: number, y: number}
@@ -87,6 +89,7 @@ export class C_MazeObjView implements I_MazeObjView {
     private my_col_l:  string|null; // オブジェクトの線のCSSカラー 
 
     private my_col_2:  string|null; // 2Dマップの面のCSSカラー 
+    private my_col_L:  string|null; // 2Dマップの線のCSSカラー 
 
     protected constructor(j?: JSON_MazeObjView|undefined) {
         this.clname     =  this.constructor.name;
@@ -108,6 +111,7 @@ export class C_MazeObjView implements I_MazeObjView {
         this.my_col_l   = '#333333'; 
 
         this.my_col_2   = '#cccccc'; 
+        this.my_col_L   = '#9999ff'; 
 
         if (j !== undefined) this.__init(j);
     }
@@ -128,6 +132,7 @@ export class C_MazeObjView implements I_MazeObjView {
         if (j.col_d   !== undefined) this.my_col_d  = j.col_d  !== ''  ? j.col_d  : null; 
         if (j.col_l   !== undefined) this.my_col_l  = j.col_l  !== ''  ? j.col_l  : null; 
         if (j.col_2   !== undefined) this.my_col_2  = j.col_2  !== ''  ? j.col_2  : null; 
+        if (j.col_L   !== undefined) this.my_col_L  = j.col_L  !== ''  ? j.col_L  : null; 
 
         return this;
     }
@@ -162,10 +167,12 @@ export class C_MazeObjView implements I_MazeObjView {
     public set_col_l(col_l: string|null): string|null {return this.my_col_l = col_l} 
 
     public col_2(): string|null {return this.my_col_2}
+    public col_L(): string|null {return this.my_col_L}
     public set_col_2(col_2: string|null): string|null {return this.my_col_2 = col_2} 
+    public set_col_L(col_L: string|null): string|null {return this.my_col_L = col_L} 
 
     public drow2D(rect: T_Rect): void {
-        drow2D_cell(rect, this.col_2() ?? '#cccccc', this.col_l() ?? '#9999ff');
+        drow2D_cell(rect, this.col_2() ?? '#cccccc', this.col_L() ?? '#9999ff');
     }
 
     public drow3D(frot: T_Wall, back: T_Wall): void {
@@ -297,6 +304,7 @@ export class C_MazeObjView implements I_MazeObjView {
             col_d:   this.my_col_d ?? '', 
             col_l:   this.my_col_l ?? '', 
             col_2:   this.my_col_2 ?? '', 
+            col_L:   this.my_col_L ?? '', 
         }
     }
     public decode(j: JSON_MazeObjView|undefined): I_MazeObjView {

@@ -169,8 +169,10 @@ export function do_move_bottom_half(blink_mode: string): void {   //alert('Floor
     change_unexp_to_floor(g_team.get_pd());
     display_maze3D();
     display_maze_name();
+
     if (blink_mode === 'blink_on') maze3D_blink_on_direction();
     else maze3D_blink_off_direction();
+    
     if (!mask_floor_cleared()) {
         clear_mask_around_the_team(); 
         if (mask_floor_cleared()) {

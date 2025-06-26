@@ -93,7 +93,7 @@ function to_2D(): void {
         show3D: '1',
         pad_t: 0.0, pad_d: 0.0, pad_s: 0.0,
         col_f: '', col_b: '', col_s: '', col_t: '', col_d: '', 
-        col_l: '#0000ff', col_2: '#333333',
+        col_l: '#0000ff', col_2: '#333333', col_L: '#6666ff', 
     })
 
     const cell_unexp = C_MazeObjView.newObj({
@@ -101,7 +101,7 @@ function to_2D(): void {
             show3D:  '1',
             pad_t: 0.0, pad_d: 0.0, pad_s: 0.0,
             col_f: '', col_b: '', col_s: '', col_t: '', col_d: '', 
-            col_l: '#0000ff', col_2: '#ff00ff', 
+            col_l: '#0000ff', col_2: '#ff00ff', col_L: '#6666ff', 
     })
 
     for (let y = 0; y < size_y; y++) {
