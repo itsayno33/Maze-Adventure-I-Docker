@@ -39,8 +39,8 @@ function calc_view2D_width(): void {
     const row_px = cvs.height / row;
 //    const row_px = view_hght / row;
 
-    c_size_x     = _max([20.0, _round(1.00 *  _min([col_px, row_px]), 2)]);
-    c_size_y     = _max([20.0, _round(1.00 *  _min([col_px, row_px]), 2)]);
+    c_size_x     = _max([15.0, _round(1.00 *  _min([col_px, row_px]), 2)]);
+    c_size_y     = _max([15.0, _round(1.00 *  _min([col_px, row_px]), 2)]);
 
     
     map_wdth     = c_size_x * col;
