@@ -50,9 +50,9 @@
 
 function new_team(): Team {
     global $gv;
-    $x = 2 * random_int(0, (($gv->maze->get_size_x() - 1) / 2) - 1) + 1;
-    $y = 2 * random_int(0, (($gv->maze->get_size_y() - 1) / 2) - 1) + 1;
-    $z = 2 * random_int(0,  ($gv->maze->get_size_z() - 1));
+    $x = 2 * random_int(0, intval(($gv->maze->get_size_x() - 1) / 2) - 1) + 1;
+    $y = 2 * random_int(0, intval(($gv->maze->get_size_y() - 1) / 2) - 1) + 1;
+    $z = 2 * random_int(0, $gv->maze->get_size_z() - 1);
     $d = random_int(0, Direct::MAX);
     return new Team(['x' => $x, 'y' => $y, 'z' => $z, 'd' => $d]);
 }
