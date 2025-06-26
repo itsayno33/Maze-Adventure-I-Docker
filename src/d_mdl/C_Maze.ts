@@ -230,8 +230,13 @@ export class C_Maze implements I_Locate, I_JSON_Uniq {
         }    
     }
 
-    public is_cleared(clr_pos: C_Point): boolean {
+    public is_floor_cleared(clr_pos: C_Point): boolean {
         return this.unclear[clr_pos.z] < 1;
+    }
+
+    public is_maze_cleared(): boolean {
+        for (const clr of this.unclear) if (clr > 0) return false;
+        return true;
     }
 
     public is_masked(p: C_Point): boolean {return this.is_masked_xyz(p.x, p.y, p.z)}

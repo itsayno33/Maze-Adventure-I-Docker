@@ -171,15 +171,19 @@ export function do_move_bottom_half(blink_mode: string): void {   //alert('Floor
     display_maze_name();
     if (blink_mode === 'blink_on') maze3D_blink_on_direction();
     else maze3D_blink_off_direction();
-    if (!mask_cleared()) {
+    if (!mask_floor_cleared()) {
         clear_mask_around_the_team(); 
-        if (mask_cleared()) alert('この階を制覇しました！！') /* **************************** */
+        if (mask_floor_cleared()) {
+            if (mask_maze_cleared()) alert('おめでとう！！この迷宮を制覇しました！！！');
+            else                     alert('この階を制覇しました！！');
+        }
     }
-    display_maze2D();                           // ********** 作成中 *************
+    display_maze2D();
     display_mazeCh();
 }
 
-function mask_cleared(): boolean {return g_maze.is_cleared(g_team.get_pd())}
+function mask_floor_cleared(): boolean {return g_maze.is_floor_cleared(g_team.get_pd())}
+function mask_maze_cleared():  boolean {return g_maze.is_maze_cleared()}
 
 function display_maze_name(): void {
     try {
