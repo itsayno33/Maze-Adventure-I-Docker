@@ -347,11 +347,11 @@ CREATE TABLE IF NOT EXISTS tbl_obje (
   save_id     int         NOT NULL,
   uniq_id     varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
   maze_uid    varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
-  cls_name    varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL      -- 元オブジェのクラス名,
-  pos_x      int          DEFAULT 0,
-  pos_y      int          DEFAULT 0,
-  pos_z      int          DEFAULT 0,
-  pos_d      int          DEFAULT 99,  -- N:0, E:1, S:2, W:3 X:99
+  cls_name    varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,     -- 元オブジェのクラス名,
+  pos_x      int          NOT NULL,
+  pos_y      int          NOT NULL,
+  pos_z      int          NOT NULL,
+  pos_d      int          NOT NULL,   -- N:0, E:1, S:2, W:3 X:99
   view       JSON         NOT NULL,
   stat       JSON         NOT NULL,
   create_time DATETIME    DEFAULT CURRENT_TIMESTAMP NOT NULL,
