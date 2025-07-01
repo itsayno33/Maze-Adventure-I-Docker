@@ -342,6 +342,30 @@ CREATE TABLE IF NOT EXISTS tbl_good (
 ALTER TABLE tbl_good ADD INDEX idx_mvpt_save_id(save_id, uniq_id);
 
 
+CREATE TABLE IF NOT EXISTS tbl_obje (
+  id          int         NOT NULL AUTO_INCREMENT,
+  save_id     int         NOT NULL,
+  uniq_id     varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
+  maze_uid    varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
+  cls_name    varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL      -- 元オブジェのクラス名,
+  pos_x      int          DEFAULT 0,
+  pos_y      int          DEFAULT 0,
+  pos_z      int          DEFAULT 0,
+  pos_d      int          DEFAULT 99,  -- N:0, E:1, S:2, W:3 X:99
+  view       JSON         NOT NULL,
+  stat       JSON         NOT NULL,
+  create_time DATETIME    DEFAULT CURRENT_TIMESTAMP NOT NULL,
+  update_time DATETIME    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
+
+    PRIMARY KEY (id),
+    CONSTRAINT save_id_check_for_obje  
+        FOREIGN KEY (save_id)  REFERENCES tbl_save(save_id) 
+            ON DELETE RESTRICT 
+            ON UPDATE CASCADE 
+) ENGINE=INNODB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_ja_0900_as_cs_ks;
+
+ALTER TABLE tbl_obje ADD INDEX idx_obje_save_id(save_id, uniq_id);
+
 
 
 /*
