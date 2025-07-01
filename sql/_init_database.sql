@@ -207,7 +207,7 @@ CREATE TABLE tbl_hero (
     }
 */
     state            INT UNSIGNED    NOT NULL,                     -- 状態異常等
-    is_alive         BOOL            DEFAULT true NOT NULL,        -- 生きてるかどうか
+--    is_alive         BOOL            DEFAULT true NOT NULL,        -- 生きてるかどうか
 
     lv               INT UNSIGNED    DEFAULT 0    NOT NULL,        -- ヒーローレベル
 
@@ -220,6 +220,10 @@ CREATE TABLE tbl_hero (
 
     abi_p_bsc        JSON                         NOT NULL,
     abi_m_bsc        JSON                         NOT NULL,
+    abi_p_ttl        JSON                         NOT NULL,
+    abi_m_ttl        JSON                         NOT NULL,
+    abi_p_now        JSON                         NOT NULL,
+    abi_m_now        JSON                         NOT NULL,
 
 
 --    hp_bsc            INT UNSIGNED    DEFAULT 0    NOT NULL,        -- ライフのデフォルト値。
