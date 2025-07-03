@@ -347,13 +347,14 @@ CREATE TABLE IF NOT EXISTS tbl_obje (
   save_id     int         NOT NULL,
   uniq_id     varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
   maze_uid    varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,
-  cls_name    varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,     -- 元オブジェのクラス名,
-  pos_x      int          NOT NULL,
-  pos_y      int          NOT NULL,
-  pos_z      int          NOT NULL,
-  pos_d      int          NOT NULL,   -- N:0, E:1, S:2, W:3 X:99
-  view       JSON         NOT NULL,
-  stat       JSON         NOT NULL,
+  cl_name    varchar(60) CHARACTER SET utf8mb4 COLLATE utf8mb4_ja_0900_as_cs_ks NOT NULL,     -- 元オブジェのクラス名,
+  pos_x       int          NOT NULL,
+  pos_y       int          NOT NULL,
+  pos_z       int          NOT NULL,
+  pos_d       int          NOT NULL,   -- N:0, E:1, S:2, W:3 X:99
+  view        JSON         NOT NULL,
+  walker      JSON         NOT NULL,
+  stat        JSON         NOT NULL,
   create_time DATETIME    DEFAULT CURRENT_TIMESTAMP NOT NULL,
   update_time DATETIME    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
 
@@ -390,6 +391,7 @@ ALTER TABLE tbl_mazeinfo ADD INDEX idx_mif_name(name);
 ** 暫定ここまで！
 **
 */
+;
 
 CREATE TABLE tbl_djob ( /* ジョブの基本値テーブル */
     id                INT                AUTO_INCREMENT, 
