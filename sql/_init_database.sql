@@ -353,7 +353,8 @@ CREATE TABLE IF NOT EXISTS tbl_obje (
   pos_z       int          NOT NULL,
   pos_d       int          NOT NULL,   -- N:0, E:1, S:2, W:3 X:99
   view        JSON         NOT NULL,
-  walker      JSON         NOT NULL,
+  walk        JSON         NOT NULL,
+  wndr        JSON         NOT NULL,
   stat        JSON         NOT NULL,
   create_time DATETIME    DEFAULT CURRENT_TIMESTAMP NOT NULL,
   update_time DATETIME    DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP NOT NULL, 
